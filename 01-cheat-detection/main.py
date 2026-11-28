@@ -3,6 +3,8 @@
 # Project 1: Multiplayer Game Cheat Detection
 
 # creating a dictionary to store player statistics
+
+#suspicious player with high kill-death ratio and headshot percentage
 player = {
     "name": "Summer",
     "kills": 30,
@@ -11,6 +13,7 @@ player = {
     "headshot_history": [20, 25, 22, 24, 53]
 }
 
+# player with average statistics
 player2 = {
     "name": "Winter",
     "kills": 15,
@@ -19,6 +22,7 @@ player2 = {
     "headshot_history": [18, 20, 19, 27, 21]
 }
 
+# player with low statistics, newer player
 player3 = {
     "name": "Autumn",
     "kills": 2,
@@ -27,8 +31,35 @@ player3 = {
     "headshot_history": [20, 22, 19]
 }
 
+# player with high headshot percentage but low kills
+player4 = {
+    "name": "Spring",
+    "kills": 40,
+    "deaths": 5,
+    "headshots": 22,
+    "headshot_history": [52, 55, 58, 54, 56]
+}
+
+# player with high kills and headshots, a sneaky cheater
+player5 = {
+    "name": "Season",
+    "kills": 100,
+    "deaths": 21,
+    "headshots": 59,
+    "headshot_history": [59, 59, 59, 59, 59]
+}
+
+# player with no kills or headshots, a new player
+player6 = {
+    "name": "Sunny",
+    "kills": 0,
+    "deaths": 0,
+    "headshots": 0,
+    "headshot_history": [0]
+}
+
 # players in a list
-players = [player, player2, player3]
+players = [player, player2, player3, player4, player5, player6]
 
 # function to calculate kill-death ratio
 def calculate_kd(kills, deaths):
@@ -91,7 +122,8 @@ for current_player in players:
     if check_high_kd(kd):
         reasons.append("K/D above 5")
 
-    difference = None  # initialize difference variable
+    # initialize difference variable
+    difference = None 
 
     # checking if the player has enough kills to make a judgment on their headshot percentage and giving reason for review
     if check_enough_kills(current_player["kills"]):
@@ -124,11 +156,9 @@ for current_player in players:
     # displaying reasons for review if any
     if reasons:
         print("Flagged for review:", ", ".join(reasons))
+    elif not check_enough_kills(current_player["kills"]):
+        print("Not enough data to judge headshots")
     else:
         print("No suspicious activity detected.")
-
-    # giving reason for not being able to judge off headshots
-    if not check_enough_kills(current_player["kills"]):
-        print("Not enough data to judge headshots")
 
     print("--------------------------------")
